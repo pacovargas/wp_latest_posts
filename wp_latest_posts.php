@@ -31,6 +31,9 @@ if (!defined('_PS_VERSION_')) {
 class Wp_latest_posts extends Module
 {
     protected $config_form = false;
+    private $errores = "";
+    private $hayErrores = FALSE;
+    private $posts = array();
 
     public function __construct()
     {
@@ -172,6 +175,20 @@ class Wp_latest_posts extends Module
                         'name' => 'WP_LATEST_POSTS_DB_PREFIX',
                         'label' => $this->l('Wordpress database prefix'),
                     ),
+                    array(
+                        'col' => 3,
+                        'type' => 'text',
+                        'desc' => $this->l('Number of posts per row'),
+                        'name' => 'WP_LATEST_POSTS_POSTS_PER_ROW',
+                        'label' => $this->l('Posts per row'),
+                    ),
+                    array(
+                        'col' => 3,
+                        'type' => 'text',
+                        'desc' => $this->l('Number of rows'),
+                        'name' => 'WP_LATEST_POSTS_ROWS',
+                        'label' => $this->l('Number of rows'),
+                    ),
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
@@ -191,6 +208,8 @@ class Wp_latest_posts extends Module
             'WP_LATEST_POSTS_DB_USERNAME' => Configuration::get('WP_LATEST_POSTS_DB_USERNAME', null),
             'WP_LATEST_POSTS_DB_PASSWORD' => Configuration::get('WP_LATEST_POSTS_DB_PASSWORD', null),
             'WP_LATEST_POSTS_DB_PREFIX' => Configuration::get('WP_LATEST_POSTS_DB_PREFIX', null),
+            'WP_LATEST_POSTS_POSTS_PER_ROW' => Configuration::get('WP_LATEST_POSTS_POSTS_PER_ROW', null),
+            'WP_LATEST_POSTS_ROWS' => Configuration::get('WP_LATEST_POSTS_ROWS', null),
         );
     }
 
@@ -202,7 +221,14 @@ class Wp_latest_posts extends Module
         $form_values = $this->getConfigFormValues();
 
         foreach (array_keys($form_values) as $key) {
-            Configuration::updateValue($key, Tools::getValue($key));
+            if($key == "WP_LATEST_POSTS_DB_PASSWORD"){
+                if(Tools::getValue($key) != ''){
+                    Configuration::updateValue($key, Tools::getValue($key));
+                }
+            }
+            else{
+                Configuration::updateValue($key, Tools::getValue($key));
+            }
         }
     }
 
@@ -211,10 +237,10 @@ class Wp_latest_posts extends Module
     */
     public function hookBackOfficeHeader()
     {
-        // if (Tools::getValue('module_name') == $this->name) {
-        //     $this->context->controller->addJS($this->_path.'views/js/back.js');
-        //     $this->context->controller->addCSS($this->_path.'views/css/back.css');
-        // }
+        if (Tools::getValue('module_name') == $this->name) {
+            $this->context->controller->addJS($this->_path.'views/js/back.js');
+            // $this->context->controller->addCSS($this->_path.'views/css/back.css');
+        }
     }
 
     /**
@@ -228,6 +254,63 @@ class Wp_latest_posts extends Module
 
     public function hookDisplayHome()
     {
-        /* Place your code here. */
+        if(!$db = $this->dbConnect()){
+            $this->hayErrores = TRUE;
+        }
+        else{
+            $_wp_prefix = Configuration::get('WP_LATEST_POSTS_DB_PREFIX', null);
+            $_posts_nbr = 3;
+            $posts_table = $_wp_prefix . "posts";
+            $postmeta_table = $_wp_prefix . "postmeta";
+
+            $query = "SELECT p.post_title, p.post_content, p.guid as url, i.guid
+            FROM $posts_table AS p
+            JOIN $postmeta_table AS m ON p.ID = m.post_id
+            AND m.meta_key LIKE '_thumbnail_id'
+            AND p.post_type LIKE 'post'
+            AND p.post_status LIKE 'publish'
+            JOIN $posts_table AS i ON i.ID = m.meta_value
+            order by p.ID desc
+            limit $_posts_nbr";
+
+            if(!$resultado = $db->query($query)){
+                $this->hayErrores = TRUE;
+                $this->errores .=  "<li>" . $this->l('No hay posts que mostrar') . ": " . $mysqli->connect_error . "</li>";
+            }
+            else{
+                while ($row = $resultado->fetch_assoc()){
+                    $this->posts[] = array(
+                        'titulo' => $row['post_title'],
+                        'texto' => $row['post_content'],
+                        'url' => $row['url'],
+                        'img_url' => $row['guid']
+                    );
+                }
+            }
+        }
+
+        $this->smarty->assign(array(
+            'hay_errores' => $this->hayErrores,
+            'errores' => $this->errores,
+            'posts' => $this->posts
+        ));
+
+        return $this->display(__FILE__, 'wp_latest_posts.tpl');
+    }
+
+    private function dbConnect(){
+        $host = Configuration::get('WP_LATEST_POSTS_DB_SERVER', null);
+        $name = Configuration::get('WP_LATEST_POSTS_DB_NAME', null);
+        $username =  Configuration::get('WP_LATEST_POSTS_DB_USERNAME', null);
+        $password = Configuration::get('WP_LATEST_POSTS_DB_PASSWORD', null);
+
+        $mysqli = new mysqli($host, $username, $password, $name);
+        if ($mysqli->connect_errno) {
+            $this->errores .=  "<li>" . $this->l('Fallo al conectar a la base de datos') . ": " . $mysqli->connect_error . "</li>";
+            return FALSE;
+        }
+        else{
+            return $mysqli;
+        }
     }
 }
