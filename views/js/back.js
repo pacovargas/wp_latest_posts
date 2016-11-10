@@ -22,7 +22,10 @@ $(function(){
 
         if(!valido){
             event.preventDefault();
-            $('#errores-wplp').html('<ol>' + errores + '</ol>');
+            $('#errores-wplp').html('<p>' + titulo_errores + ': </p><ol>' + errores + '</ol>');
+            $('html, body').animate({
+                scrollTop: 0
+            }, 500);
         }
     });
 });

@@ -22,6 +22,7 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-<div id="errores-wplp">
-    Errores
-</div>
+
+{addJsDefL name=titulo_errores}{l s='There are errors' js=1}{/addJsDefL}
+
+<div id="errores-wplp"></div>
