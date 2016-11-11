@@ -69,6 +69,7 @@ $(function(){
 
         if(!valido){
             event.preventDefault();
+            $('#exito-wplp').hide();
             $('#errores-wplp').html('<p>' + titulo_errores + ': </p><ol>' + errores + '</ol>');
             $('html, body').animate({
                 scrollTop: 0
