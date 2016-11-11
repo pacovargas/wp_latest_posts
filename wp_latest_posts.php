@@ -34,6 +34,7 @@ class Wp_latest_posts extends Module
     private $errores = "";
     private $hayErrores = FALSE;
     private $posts = array();
+    private $error_messages;
 
     public function __construct()
     {
@@ -90,7 +91,7 @@ class Wp_latest_posts extends Module
         }
 
         $this->context->smarty->assign('module_dir', $this->_path);
-
+        
         $output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
 
         return $output.$this->renderForm();

@@ -23,6 +23,16 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
-{addJsDefL name=titulo_errores}{l s='There are errors' js=1}{/addJsDefL}
+{addJsDefL name=titulo_errores}{l s="there are errors" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_host_vacio}{l s="Host can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_host_invalido}{l s="Host is not valid" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_nombre_vacio}{l s="Database name can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_usuario_vacio}{l s="Database username can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_prefijo_vacio}{l s="Database prefix can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_posts_por_fila_vacio}{l s="Posts per row can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_posts_por_fila_invalido}{l s="Posts per row must be an integer number" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_filas_vacio}{l s="Posts per row can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_filas_invalido}{l s="Posts per row must be an integer number" js=1 mod='wp_latest_posts'}{/addJsDefL}
+
 
 <div id="errores-wplp"></div>
