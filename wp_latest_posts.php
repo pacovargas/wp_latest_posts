@@ -35,6 +35,7 @@ class Wp_latest_posts extends Module
     private $hayErrores = FALSE;
     private $posts = array();
     private $error_messages;
+    private $exito_configuracion = FALSE;
 
     public function __construct()
     {
@@ -91,6 +92,7 @@ class Wp_latest_posts extends Module
         }
 
         $this->context->smarty->assign('module_dir', $this->_path);
+        $this->context->smarty->assign('exito_configuracion', $this->exito_configuracion);
         
         $output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
 
@@ -231,6 +233,8 @@ class Wp_latest_posts extends Module
                 Configuration::updateValue($key, Tools::getValue($key));
             }
         }
+
+        $this->exito_configuracion = TRUE;
     }
 
     /**
@@ -240,7 +244,7 @@ class Wp_latest_posts extends Module
     {
         if (Tools::getValue('module_name') == $this->name) {
             $this->context->controller->addJS($this->_path.'views/js/back.js');
-            // $this->context->controller->addCSS($this->_path.'views/css/back.css');
+            $this->context->controller->addCSS($this->_path.'views/css/wplp_config.css');
         }
     }
 

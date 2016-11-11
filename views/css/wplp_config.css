@@ -1,0 +1,20 @@
+#errores-wplp,
+#exito-wplp{
+  background-color: rgba(255, 0, 0, 0.3);
+  color: whitesmoke;
+  padding: 10px;
+  border: 1px red solid;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: none;
+}
+
+#exito-wplp{
+  display: block;
+  background-color: rgba(0, 255, 0, 0.3);
+  border-color: green;
+}
+
+#errores-wplp p{
+  font-weight: bold;
+}

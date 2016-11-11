@@ -23,7 +23,7 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
-{addJsDefL name=titulo_errores}{l s="there are errors" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=titulo_errores}{l s="There are errors" js=1 mod='wp_latest_posts'}{/addJsDefL}
 {addJsDefL name=msg_host_vacio}{l s="Host can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
 {addJsDefL name=msg_host_invalido}{l s="Host is not valid" js=1 mod='wp_latest_posts'}{/addJsDefL}
 {addJsDefL name=msg_nombre_vacio}{l s="Database name can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
@@ -36,3 +36,7 @@
 
 
 <div id="errores-wplp"></div>
+
+{if $exito_configuracion}
+    <div id="exito-wplp">{l s="Configuration successfully saved" mod='wp_latest_posts'}</div>
+{/if}
