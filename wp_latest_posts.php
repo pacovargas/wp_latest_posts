@@ -74,7 +74,13 @@ class Wp_latest_posts extends Module
 
     public function uninstall()
     {
-        Configuration::deleteByName('WP_LATEST_POSTS_LIVE_MODE');
+        Configuration::deleteByName('WP_LATEST_POSTS_DB_SERVER');
+        Configuration::deleteByName('WP_LATEST_POSTS_DB_NAME');
+        Configuration::deleteByName('WP_LATEST_POSTS_DB_USERNAME');
+        Configuration::deleteByName('WP_LATEST_POSTS_DB_PASSWORD');
+        Configuration::deleteByName('WP_LATEST_POSTS_DB_PREFIX');
+        Configuration::deleteByName('WP_LATEST_POSTS_POSTS_PER_ROW');
+        Configuration::deleteByName('WP_LATEST_POSTS_ROWS');
 
         return parent::uninstall();
     }
@@ -264,9 +270,12 @@ class Wp_latest_posts extends Module
         }
         else{
             $_wp_prefix = Configuration::get('WP_LATEST_POSTS_DB_PREFIX', null);
-            $_posts_nbr = 3;
             $posts_table = $_wp_prefix . "posts";
             $postmeta_table = $_wp_prefix . "postmeta";
+            $posts_per_row = Configuration::get('WP_LATEST_POSTS_POSTS_PER_ROW', null);
+            $row_nbr = Configuration::get('WP_LATEST_POSTS_ROWS', null);
+            $_posts_nbr = $posts_per_row * $row_nbr;
+            $post_width = 100 / $posts_per_row;
 
             $query = "SELECT p.post_title, p.post_content, p.guid as url, i.guid
             FROM $posts_table AS p
@@ -291,13 +300,20 @@ class Wp_latest_posts extends Module
                         'img_url' => $row['guid']
                     );
                 }
+
+                $this->smarty->assign(array(
+                    'posts' => $this->posts,
+                    'posts_por_fila' => $posts_per_row,
+                    'filas' => $row_nbr,
+                    'post_width' => $post_width,
+                    'posts_nbr' => $_posts_nbr
+                ));
             }
         }
 
         $this->smarty->assign(array(
             'hay_errores' => $this->hayErrores,
             'errores' => $this->errores,
-            'posts' => $this->posts
         ));
 
         return $this->display(__FILE__, 'wp_latest_posts.tpl');
