@@ -1,3 +1,37 @@
 div.wplp_title{
     text-align: center;
 }
+
+div.wplp_posts_container{
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+	-webkitflex-wrap: wrap;
+}
+
+div.wplp_post_image img{
+    width: 100%;
+}
+
+div.wplp_post_title{
+    text-align: center;
+    font-size: 1.5em
+}
+
+div.wplp_link{
+    text-align: right;
+    font-weight: bold;
+}
+
+div.wplp_post{
+    padding: 0 15px;
+}
+
+div.wplp_post div{
+    padding-bottom: 10px;
+}
+
+div.wplp_title{
+    margin-bottom: 20px;
+}

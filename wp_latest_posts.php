@@ -293,9 +293,12 @@ class Wp_latest_posts extends Module
             }
             else{
                 while ($row = $resultado->fetch_assoc()){
+                    if(strlen($row['post_content']) > 200){
+                        $row['post_content'] = substr($row['post_content'], 0, 200) . "...";
+                    }
                     $this->posts[] = array(
                         'titulo' => $row['post_title'],
-                        'texto' => $row['post_content'],
+                        'texto' => strip_tags($row['post_content']),
                         'url' => $row['url'],
                         'img_url' => $row['guid']
                     );
@@ -306,7 +309,8 @@ class Wp_latest_posts extends Module
                     'posts_por_fila' => $posts_per_row,
                     'filas' => $row_nbr,
                     'post_width' => $post_width,
-                    'posts_nbr' => $_posts_nbr
+                    'posts_nbr' => $_posts_nbr,
+                    'count_posts' => count($this->posts)
                 ));
             }
         }
