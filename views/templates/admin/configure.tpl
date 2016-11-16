@@ -33,6 +33,8 @@
 {addJsDefL name=msg_posts_por_fila_invalido}{l s="Posts per row must be an integer number" js=1 mod='wp_latest_posts'}{/addJsDefL}
 {addJsDefL name=msg_filas_vacio}{l s="Posts per row can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
 {addJsDefL name=msg_filas_invalido}{l s="Posts per row must be an integer number" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_resumen_vacio}{l s="Excerpt length can´t be empty" js=1 mod='wp_latest_posts'}{/addJsDefL}
+{addJsDefL name=msg_resumen_invalido}{l s="Excerpt length row must be an integer number" js=1 mod='wp_latest_posts'}{/addJsDefL}
 
 
 <div id="errores-wplp"></div>

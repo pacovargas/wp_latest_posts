@@ -67,6 +67,18 @@ $(function(){
             }
         }
 
+        var excerpt = $('#WP_LATEST_POSTS_EXCERPT_LENGTH').val();
+        if(excerpt === ""){
+            valido = false;
+            errores = errores + "<li>" + msg_resumen_vacio + "</li>";
+        }
+        else{
+            if(!validarEntero(excerpt)){
+                valido = false;
+                errores = errores + "<li>" + msg_resumen_invalido + "</li>";
+            }
+        }
+
         if(!valido){
             event.preventDefault();
             $('#exito-wplp').hide();

@@ -64,7 +64,10 @@ class Wp_latest_posts extends Module
      */
     public function install()
     {
-        Configuration::updateValue('WP_LATEST_POSTS_LIVE_MODE', false);
+        // Configuration::updateValue('WP_LATEST_POSTS_LIVE_MODE', false);
+        Configuration::updateValue('WP_LATEST_POSTS_EXCERPT_LENGTH', 200);
+        Configuration::updateValue('WP_LATEST_POSTS_POSTS_PER_ROW', 3);
+        Configuration::updateValue('WP_LATEST_POSTS_ROWS', 1);
 
         return parent::install() &&
             $this->registerHook('header') &&
@@ -81,6 +84,8 @@ class Wp_latest_posts extends Module
         Configuration::deleteByName('WP_LATEST_POSTS_DB_PREFIX');
         Configuration::deleteByName('WP_LATEST_POSTS_POSTS_PER_ROW');
         Configuration::deleteByName('WP_LATEST_POSTS_ROWS');
+        Configuration::deleteByName('WP_LATEST_POSTS_EXCERPT_LENGTH');
+
 
         return parent::uninstall();
     }
@@ -198,6 +203,13 @@ class Wp_latest_posts extends Module
                         'name' => 'WP_LATEST_POSTS_ROWS',
                         'label' => $this->l('Number of rows'),
                     ),
+                    array(
+                        'col' => 3,
+                        'type' => 'text',
+                        'desc' => $this->l('Number of characters shown in post excerpt'),
+                        'name' => 'WP_LATEST_POSTS_EXCERPT_LENGTH',
+                        'label' => $this->l('Excerpt length'),
+                    ),
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
@@ -219,6 +231,7 @@ class Wp_latest_posts extends Module
             'WP_LATEST_POSTS_DB_PREFIX' => Configuration::get('WP_LATEST_POSTS_DB_PREFIX', null),
             'WP_LATEST_POSTS_POSTS_PER_ROW' => Configuration::get('WP_LATEST_POSTS_POSTS_PER_ROW', null),
             'WP_LATEST_POSTS_ROWS' => Configuration::get('WP_LATEST_POSTS_ROWS', null),
+            'WP_LATEST_POSTS_EXCERPT_LENGTH' => Configuration::get('WP_LATEST_POSTS_EXCERPT_LENGTH', null),
         );
     }
 
@@ -276,6 +289,7 @@ class Wp_latest_posts extends Module
             $row_nbr = Configuration::get('WP_LATEST_POSTS_ROWS', null);
             $_posts_nbr = $posts_per_row * $row_nbr;
             $post_width = 100 / $posts_per_row;
+            $longitud_resumen = Configuration::get('WP_LATEST_POSTS_EXCERPT_LENGTH', null);
 
             $query = "SELECT p.post_title, p.post_content, p.guid as url, i.guid
             FROM $posts_table AS p
@@ -293,8 +307,8 @@ class Wp_latest_posts extends Module
             }
             else{
                 while ($row = $resultado->fetch_assoc()){
-                    if(Tools::strlen($row['post_content']) > 200){
-                        $row['post_content'] = Tools::substr($row['post_content'], 0, 200) . "...";
+                    if(Tools::strlen($row['post_content']) > $longitud_resumen){
+                        $row['post_content'] = Tools::substr($row['post_content'], 0, $longitud_resumen) . "...";
                     }
                     $this->posts[] = array(
                         'titulo' => $row['post_title'],
