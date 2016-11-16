@@ -24,8 +24,8 @@ div.wplp_link{
     font-weight: bold;
 }
 
-div.wplp_post{
-    padding: 0 15px;
+div.wplp_post.post-width-padding{
+    padding-right: 20px;
 }
 
 div.wplp_post div{
