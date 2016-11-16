@@ -293,8 +293,8 @@ class Wp_latest_posts extends Module
             }
             else{
                 while ($row = $resultado->fetch_assoc()){
-                    if(strlen($row['post_content']) > 200){
-                        $row['post_content'] = substr($row['post_content'], 0, 200) . "...";
+                    if(Tools::strlen($row['post_content']) > 200){
+                        $row['post_content'] = Tools::substr($row['post_content'], 0, 200) . "...";
                     }
                     $this->posts[] = array(
                         'titulo' => $row['post_title'],
