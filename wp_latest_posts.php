@@ -303,7 +303,7 @@ class Wp_latest_posts extends Module
 
             if(!$resultado = $db->query($query)){
                 $this->hayErrores = TRUE;
-                $this->errores .=  "<li>" . $this->l('No hay posts que mostrar') . ": " . $mysqli->connect_error . "</li>";
+                $this->errores .=  "<li>" . $this->l('No hay posts que mostrar') . ": " . $db->connect_error . "</li>";
             }
             else{
                 while ($row = $resultado->fetch_assoc()){
