@@ -6,7 +6,6 @@
 * With the purchase or the installation of the software in your application
 * you accept the licence agreement.
 *
-*
 *  @author    Francisco Javier Vargas
 *  @copyright 2010-2016 Sauz Web Solutions
 *  @license   LICENSE.txt
