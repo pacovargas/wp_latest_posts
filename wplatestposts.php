@@ -235,7 +235,7 @@ class WpLatestPosts extends Module
                     Configuration::updateValue($key, Tools::getValue($key));
                 }
             }
-            else{
+            else {
                 Configuration::updateValue($key, Tools::getValue($key));
             }
         }
@@ -292,7 +292,7 @@ class WpLatestPosts extends Module
                 $this->hayErrores = TRUE;
                 $this->errores[] =  $this->l('No posts found');
             }
-            else{
+            else {
                 while ($row = $resultado->fetch_assoc()){
                     if (Tools::strlen($row['post_content']) > $longitud_resumen){
                         $row['post_content'] = Tools::substr($row['post_content'], 0, $longitud_resumen) . "...";
