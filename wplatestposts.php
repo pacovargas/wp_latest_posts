@@ -19,10 +19,10 @@ class WpLatestPosts extends Module
 {
     protected $config_form = false;
     private $errores = array();
-    private $hayErrores = FALSE;
+    private $hayErrores = false;
     private $posts = array();
     private $error_messages;
-    private $exito_configuracion = FALSE;
+    private $exito_configuracion = false;
 
     public function __construct()
     {
@@ -333,7 +333,7 @@ class WpLatestPosts extends Module
         $mysqli = new mysqli($host, $username, $password, $name);
         if ($mysqli->connect_errno) {
             $this->errores[] =  $this->l('Database conection failed') . ": " . $mysqli->connect_error;
-            return FALSE;
+            return false;
         }
         else{
             return $mysqli;
