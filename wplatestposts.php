@@ -240,7 +240,7 @@ class WpLatestPosts extends Module
             }
         }
 
-        $this->exito_configuracion = TRUE;
+        $this->exito_configuracion = true;
     }
 
     /**
@@ -266,9 +266,9 @@ class WpLatestPosts extends Module
     public function hookDisplayHome()
     {
         if (!$db = $this->dbConnect()){
-            $this->hayErrores = TRUE;
+            $this->hayErrores = true;
         }
-        else{
+        else {
             $_wp_prefix = Configuration::get('WP_LATEST_POSTS_DB_PREFIX', null);
             $posts_table = $_wp_prefix . "posts";
             $postmeta_table = $_wp_prefix . "postmeta";
@@ -289,7 +289,7 @@ class WpLatestPosts extends Module
             limit $_posts_nbr";
 
             if (!$resultado = $db->query($query)){
-                $this->hayErrores = TRUE;
+                $this->hayErrores = true;
                 $this->errores[] =  $this->l('No posts found');
             }
             else {
@@ -324,7 +324,8 @@ class WpLatestPosts extends Module
         return $this->display(__FILE__, 'wp_latest_posts.tpl');
     }
 
-    private function dbConnect(){
+    private function dbConnect()
+    {
         $host = Configuration::get('WP_LATEST_POSTS_DB_SERVER', null);
         $name = Configuration::get('WP_LATEST_POSTS_DB_NAME', null);
         $username =  Configuration::get('WP_LATEST_POSTS_DB_USERNAME', null);
@@ -335,7 +336,7 @@ class WpLatestPosts extends Module
             $this->errores[] =  $this->l('Database conection failed') . ": " . $mysqli->connect_error;
             return false;
         }
-        else{
+        else {
             return $mysqli;
         }
     }
