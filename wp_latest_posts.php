@@ -15,7 +15,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class Wp_latest_posts extends Module
+class WpLatestPosts extends Module
 {
     protected $config_form = false;
     private $errores = "";
@@ -26,7 +26,7 @@ class Wp_latest_posts extends Module
 
     public function __construct()
     {
-        $this->name = 'wp_latest_posts';
+        $this->name = 'wplatestposts';
         $this->tab = 'content_management';
         $this->version = '1.0.0';
         $this->author = 'Sauz Web Solutions';
