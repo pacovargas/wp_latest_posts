@@ -230,8 +230,8 @@ class WpLatestPosts extends Module
         $form_values = $this->getConfigFormValues();
 
         foreach (array_keys($form_values) as $key) {
-            if($key == "WP_LATEST_POSTS_DB_PASSWORD"){
-                if(Tools::getValue($key) != ''){
+            if ($key == "WP_LATEST_POSTS_DB_PASSWORD"){
+                if (Tools::getValue($key) != ''){
                     Configuration::updateValue($key, Tools::getValue($key));
                 }
             }
@@ -265,7 +265,7 @@ class WpLatestPosts extends Module
 
     public function hookDisplayHome()
     {
-        if(!$db = $this->dbConnect()){
+        if (!$db = $this->dbConnect()){
             $this->hayErrores = TRUE;
         }
         else{
@@ -288,13 +288,13 @@ class WpLatestPosts extends Module
             order by p.ID desc
             limit $_posts_nbr";
 
-            if(!$resultado = $db->query($query)){
+            if (!$resultado = $db->query($query)){
                 $this->hayErrores = TRUE;
                 $this->errores[] =  $this->l('No posts found');
             }
             else{
                 while ($row = $resultado->fetch_assoc()){
-                    if(Tools::strlen($row['post_content']) > $longitud_resumen){
+                    if (Tools::strlen($row['post_content']) > $longitud_resumen){
                         $row['post_content'] = Tools::substr($row['post_content'], 0, $longitud_resumen) . "...";
                     }
                     $this->posts[] = array(
