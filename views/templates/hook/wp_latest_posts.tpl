@@ -13,7 +13,7 @@
 {if $hay_errores}
     <pre>
         <ol>
-            {$errores}
+            {$errores|escape:'htmlall':'UTF-8'}
         </ol>
     </pre>
 {else}
@@ -26,13 +26,13 @@
         {$col = 1}
         {$posts_mostrados = 0}
         {while $posts_mostrados < $count_posts}
-            <div class="wplp_post {if $col < $posts_por_fila}post-width-padding{/if}" style="width:{$post_width}%">
-                <a href="{$posts.$post.url}">
-                    <div class="wplp_post_image"><img src="{$posts.$post.img_url}" /></div>
-                    <div class="wplp_post_title">{$posts.$post.titulo}</div>
-                    <div class="wplp_post_text">{$posts.$post.texto}</div>
+            <div class="wplp_post {if $col < $posts_por_fila}post-width-padding{/if}" style="width:{$post_width|escape:'htmlall':'UTF-8'}%">
+                <a href="{$posts.$post.url|escape:'htmlall':'UTF-8'}">
+                    <div class="wplp_post_image"><img src="{$posts.$post.img_url|escape:'htmlall':'UTF-8'}" /></div>
+                    <div class="wplp_post_title">{$posts.$post.titulo|escape:'htmlall':'UTF-8'}</div>
+                    <div class="wplp_post_text">{$posts.$post.texto|escape:'htmlall':'UTF-8'}</div>
                 </a>
-                <div class="wplp_link"><a href="{$posts.$post.url}">{l s='Read more' mod='wp_latest_posts'}</a></div>
+                <div class="wplp_link"><a href="{$posts.$post.url|escape:'htmlall':'UTF-8'}">{l s='Read more' mod='wp_latest_posts'}</a></div>
             </div>
             {$post = $post + 1}
             {if $col == $posts_por_fila}
