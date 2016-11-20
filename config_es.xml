@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
 	<name>wplatestposts</name>
-	<displayName><![CDATA[WP Latest Posts]]></displayName>
+	<displayName><![CDATA[WP Últimos Posts]]></displayName>
 	<version><![CDATA[1.0.0]]></version>
-	<description><![CDATA[Show Wordpress latest posts in home]]></description>
+	<description><![CDATA[Muestra los últimos posts de un Wordpress en la página principal]]></description>
 	<author><![CDATA[Sauz Web Solutions]]></author>
 	<tab><![CDATA[content_management]]></tab>
 	<is_configurable>1</is_configurable>
 	<need_instance>0</need_instance>
-	<limited_countries></limited_countries>
 </module>
