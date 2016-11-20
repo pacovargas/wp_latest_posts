@@ -229,13 +229,13 @@ class WpLatestPosts extends Module
     {
         $form_values = $this->getConfigFormValues();
 
-        foreach (array_keys($form_values) as $key) {
-            if ($key == "WP_LATEST_POSTS_DB_PASSWORD"){
-                if (Tools::getValue($key) != ''){
+        foreach (array_keys($form_values) as $key)
+        {
+            if ($key == "WP_LATEST_POSTS_DB_PASSWORD") {
+                if (Tools::getValue($key) != '') {
                     Configuration::updateValue($key, Tools::getValue($key));
                 }
-            }
-            else {
+            } else {
                 Configuration::updateValue($key, Tools::getValue($key));
             }
         }
@@ -265,10 +265,9 @@ class WpLatestPosts extends Module
 
     public function hookDisplayHome()
     {
-        if (!$db = $this->dbConnect()){
+        if (!$db = $this->dbConnect()) {
             $this->hayErrores = true;
-        }
-        else {
+        } else {
             $_wp_prefix = Configuration::get('WP_LATEST_POSTS_DB_PREFIX', null);
             $posts_table = $_wp_prefix . "posts";
             $postmeta_table = $_wp_prefix . "postmeta";
@@ -288,12 +287,11 @@ class WpLatestPosts extends Module
             order by p.ID desc
             limit $_posts_nbr";
 
-            if (!$resultado = $db->query($query)){
+            if (!$resultado = $db->query($query)) {
                 $this->hayErrores = true;
                 $this->errores[] =  $this->l('No posts found');
-            }
-            else {
-                while ($row = $resultado->fetch_assoc()){
+            } else {
+                while ($row = $resultado->fetch_assoc()) {
                     if (Tools::strlen($row['post_content']) > $longitud_resumen){
                         $row['post_content'] = Tools::substr($row['post_content'], 0, $longitud_resumen) . "...";
                     }
@@ -335,8 +333,7 @@ class WpLatestPosts extends Module
         if ($mysqli->connect_errno) {
             $this->errores[] =  $this->l('Database conection failed') . ": " . $mysqli->connect_error;
             return false;
-        }
-        else {
+        } else {
             return $mysqli;
         }
     }
