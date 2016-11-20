@@ -18,7 +18,7 @@ if (!defined('_PS_VERSION_')) {
 class WpLatestPosts extends Module
 {
     protected $config_form = false;
-    private $errores = "";
+    private $errores = array();
     private $hayErrores = FALSE;
     private $posts = array();
     private $error_messages;
@@ -290,7 +290,7 @@ class WpLatestPosts extends Module
 
             if(!$resultado = $db->query($query)){
                 $this->hayErrores = TRUE;
-                $this->errores .=  "<li>" . $this->l('No hay posts que mostrar') . ": " . $db->connect_error . "</li>";
+                $this->errores[] =  $this->l('No posts found');
             }
             else{
                 while ($row = $resultado->fetch_assoc()){
@@ -332,7 +332,7 @@ class WpLatestPosts extends Module
 
         $mysqli = new mysqli($host, $username, $password, $name);
         if ($mysqli->connect_errno) {
-            $this->errores .=  "<li>" . $this->l('Fallo al conectar a la base de datos') . ": " . $mysqli->connect_error . "</li>";
+            $this->errores[] =  $this->l('Database conection failed') . ": " . $mysqli->connect_error;
             return FALSE;
         }
         else{

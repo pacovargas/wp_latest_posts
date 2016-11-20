@@ -10,17 +10,22 @@
 *  @license   LICENSE.txt
 *}
 
+<div class="wplp_title">
+    <h2>{l s='Latest Posts' mod='wplatestposts'}</h2>
+</div>
+
 {if $hay_errores}
-    <pre>
+    <div class="wplp_posts_errores">
+        <div class="wplp_titulo_errores">
+            {l s='There are some errors:' mod='wplatestposts'}
+        </div>
         <ol>
-            {$errores|escape:'htmlall':'UTF-8'}
+            {foreach from=$errores item=error}
+                <li>{$error|escape:'htmlall':'UTF-8'}</li>
+            {/foreach}
         </ol>
-    </pre>
-{else}
-    <div class="wplp_title">
-        <h2>{l s='Latest Posts' mod='wp_latest_posts'}</h2>
     </div>
-    
+{else}
     <div class="wplp_posts_container">
         {$post = 0}
         {$col = 1}
@@ -32,7 +37,7 @@
                     <div class="wplp_post_title">{$posts.$post.titulo|escape:'htmlall':'UTF-8'}</div>
                     <div class="wplp_post_text">{$posts.$post.texto|escape:'htmlall':'UTF-8'}</div>
                 </a>
-                <div class="wplp_link"><a href="{$posts.$post.url|escape:'htmlall':'UTF-8'}">{l s='Read more' mod='wp_latest_posts'}</a></div>
+                <div class="wplp_link"><a href="{$posts.$post.url|escape:'htmlall':'UTF-8'}">{l s='Read more' mod='wplatestposts'}</a></div>
             </div>
             {$post = $post + 1}
             {if $col == $posts_por_fila}

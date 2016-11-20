@@ -47,3 +47,22 @@ div.wplp_post div{
 div.wplp_title{
     margin-bottom: 20px;
 }
+
+div.wplp_posts_errores ol{
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-top: 10px;
+    margin-left: 10px !important;
+}
+
+div.wplp_posts_errores{
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.3);
+    color: white;
+    padding: 20px;
+}
+
+div.wplp_titulo_errores{
+    font-weight: bold;
+    font-size: 1.2em;
+}
