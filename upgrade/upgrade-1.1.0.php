@@ -26,6 +26,7 @@ function upgrade_module_1_1_0($module)
      * Do everything you want right there,
      * You could add a column in one of your module's tables
      */
-    $module = 0;
-    return true;
+    //devuelvo module en lugar de true para que el validador no me de un warning por no usar ese parámetro
+    return $module;
+    // return true;
 }
