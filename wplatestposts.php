@@ -31,6 +31,7 @@ class WpLatestPosts extends Module
         $this->version = '1.0.0';
         $this->author = 'Sauz Web Solutions';
         $this->need_instance = 0;
+        $this->module_key = '0325942dddb576bd954141216ff3fca1';
 
         /**
          * Set $this->bootstrap to true if your module is compliant with bootstrap (PrestaShop 1.6)
